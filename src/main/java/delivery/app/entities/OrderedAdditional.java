@@ -20,11 +20,11 @@ public class OrderedAdditional {
     @ManyToOne
     @JoinColumn(name = "beverage_id", nullable = false)
     private Beverage beverage;
-
+   
     @ManyToOne
-    @JoinColumn(name = "order_id", nullable = false)
+    @JoinColumn(name = "orders_id", nullable = false)
     private Order order;
-
+    @JsonProperty("beverageAdditional")
     @ManyToOne
     @JoinColumn(name = "beverage_additional_id", nullable = false)
     private BeverageAdditional beverageAdditional;

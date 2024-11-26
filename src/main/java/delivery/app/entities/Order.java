@@ -13,6 +13,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 
 @Entity
@@ -21,6 +22,7 @@ public class Order {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "orders_id")
 	private Long order_id;
 
 	@Column
@@ -41,9 +43,9 @@ public class Order {
 	private Waiter waiter;
 
 	@OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
-	@JoinColumn(name = "order_id")
+	@JoinColumn(name = "orders_id")
 	private List<OrderedAdditional> orderedBeverageAdditionals;
-	Order(){}
+	public Order(){}
 	Order(Lunch orderedLunch, Beverage orderedBeverage, Waiter servicingWaiter,List<OrderedAdditional>  orderedBeverageAdditionals) {
 		this.lunch = orderedLunch;
 		this.beverage = orderedBeverage;

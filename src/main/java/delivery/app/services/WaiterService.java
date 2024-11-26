@@ -1,7 +1,5 @@
 package delivery.app.services;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.stereotype.Service;
@@ -38,8 +36,5 @@ public class WaiterService {
 	public Waiter findWaiterById(Long waiterId) throws NotFoundException {
 		return this.waiterRepository.findById(waiterId).orElseThrow(()->new NotFoundException());
 	}
-	
-	public List<Waiter> findAll(){
-		return this.waiterRepository.findAll();
-	}
+
 }

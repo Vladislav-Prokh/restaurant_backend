@@ -1,5 +1,7 @@
 package delivery.app.entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,7 +12,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "beverage_additionals")
 public class BeverageAdditional {
-
+	@JsonProperty("beverage_additional_id")
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long beverage_additional_id;

@@ -17,7 +17,7 @@ public class Waiter {
 
 	@Column(length = 20)
 	private String waiter_name;
-	@Column(length = 20)
+	@Column(name = "waiter_surname", nullable = false)
 	private String waiter_surname;
 	@Column(length = 20)
 	private String waiter_lastname;
@@ -30,11 +30,11 @@ public class Waiter {
 		this.waiter_name = waiter_name;
 	}
 
-	public String getWaiter_surename() {
+	public String getWaiter_surname() {
 		return waiter_surname;
 	}
 
-	public void setWaiter_surename(String waiter_surename) {
+	public void setWaiter_surname(String waiter_surename) {
 		this.waiter_surname = waiter_surename;
 	}
 

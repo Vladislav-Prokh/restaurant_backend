@@ -17,10 +17,10 @@ public class Lunch {
 	private Long lunch_id;
 	
 	@OneToOne
-	@JoinColumn(name = "meal_id")
+	@JoinColumn(name = "meal_id", nullable = false)
 	private Meal mainCourse;
 	@OneToOne
-	@JoinColumn(name = "dessert_id")
+	@JoinColumn(name = "dessert_id",nullable = false)
 	private Dessert dessert;
 	public Meal getMainCourse() {
 		return mainCourse;
@@ -42,5 +42,9 @@ public class Lunch {
 		this.lunch_id = lunch_id;
 	}
 	public Lunch() {}
+	public Lunch(Meal mainCourse, Dessert dessert) {
+		this.mainCourse = mainCourse;
+		this.dessert = dessert;
+	}
 
 }

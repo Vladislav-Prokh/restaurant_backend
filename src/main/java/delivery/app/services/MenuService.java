@@ -17,7 +17,7 @@ import delivery.app.repositories.MealRepository;
 
 @Service
 public class MenuService {
-	
+
 	@Autowired
 	private BeverageRepository beverageRepository;
 	@Autowired
@@ -26,62 +26,60 @@ public class MenuService {
 	private MealRepository mealReposiory;
 	@Autowired
 	private BeverageAdditionalRepository additionalRepository;
-	
-	public List<Beverage> findAllBeverages(){
+
+	public List<Beverage> findAllBeverages() {
 		return this.beverageRepository.findAll();
 	}
-	
+
 	public Beverage findBeverageById(Long beverage_id) throws NotFoundException {
-		return this.beverageRepository.findById(beverage_id).orElseThrow(()->new NotFoundException());
+		return this.beverageRepository.findById(beverage_id).orElseThrow(() -> new NotFoundException());
 	}
-	
+
 	public boolean saveBeverage(Beverage beverage) {
-	    try {
-	        return this.beverageRepository.save(beverage) != null;
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        return false;
-	    }
+		try {
+			return this.beverageRepository.save(beverage) != null;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
-	
-	public List<Dessert> findAllDessert(){
-		return this.findAllDessert();
+
+	public List<Dessert> findAllDessert() {
+		return this.dessertRepository.findAll();
 	}
-	
+
 	public Dessert findDessertById(Long dessert_id) throws NotFoundException {
-		return this.dessertRepository.findById(dessert_id).orElseThrow(()->new NotFoundException());
+		return this.dessertRepository.findById(dessert_id).orElseThrow(() -> new NotFoundException());
 	}
+
 	public boolean saveDessert(Dessert dessert) {
-	    try {
-	        return this.dessertRepository.save(dessert) != null;
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        return false;
-	    }
+		try {
+			return this.dessertRepository.save(dessert) != null;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
-	
-	public List<Meal> findAllMeals(){
-		return this.mealReposiory.findAll();
-	}
-	
+
 	public Meal findMealById(Long meal_id) throws NotFoundException {
-		return this.mealReposiory.findById(meal_id).orElseThrow(()->new NotFoundException());
+		return this.mealReposiory.findById(meal_id).orElseThrow(() -> new NotFoundException());
 	}
+
 	public boolean saveMeal(Meal meal) {
-	    try {
-	        return this.mealReposiory.save(meal) != null;
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        return false;
-	    }
+		try {
+			return this.mealReposiory.save(meal) != null;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
-	
+
 	public boolean saveBeverageAdditional(BeverageAdditional additional) {
-	    try {
-	        return this.additionalRepository.save(additional) != null;
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        return false;
-	    }
+		try {
+			return this.additionalRepository.save(additional) != null;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 }

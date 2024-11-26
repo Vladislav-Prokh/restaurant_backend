@@ -23,29 +23,29 @@ public class MenuController {
     @Autowired
     private MenuService menuService;
     
-    @PostMapping("/privileged/add/beverageAdditional")
+    @PostMapping("/beverage-additionals")
     public ResponseEntity<?> addBeverageAdditional(@RequestBody BeverageAdditional additional){
-    	return addItem(additional, menuService::saveBeverageAdditional, additional.toString());
+    	return addEntityToDB(additional, menuService::saveBeverageAdditional, additional.toString());
     }
-    @PostMapping("/privileged/add/beverage")
+    @PostMapping("/beverages")
     public ResponseEntity<?> addBeverage(@RequestBody Beverage beverage) {
-        return addItem(beverage, menuService::saveBeverage,beverage.toString() );
+        return addEntityToDB(beverage, menuService::saveBeverage,beverage.toString() );
     }
 
-    @PostMapping("/privileged/add/meal")
+    @PostMapping("/meals")
     public ResponseEntity<?> addMeal(@RequestBody Meal meal) {
-        return addItem(meal, menuService::saveMeal, meal.toString());
+        return addEntityToDB(meal, menuService::saveMeal, meal.toString());
     }
 
-    @PostMapping("/privileged/add/dessert")
+    @PostMapping("/desserts")
     public ResponseEntity<?> addDessert(@RequestBody Dessert dessert) {
-        return addItem(dessert, menuService::saveDessert, dessert.toString());
+        return addEntityToDB(dessert, menuService::saveDessert, dessert.toString());
     }
-    
-    private <T> ResponseEntity<?> addItem(T item, Function<T, Boolean> saveFunction, String itemName) {
+ 
+    private <T> ResponseEntity<?> addEntityToDB(T item, Function<T, Boolean> saveFunction, String itemName) {
         try {
-            boolean saved = saveFunction.apply(item); 
-            if (saved) {
+            boolean isEntitySaved = saveFunction.apply(item); 
+            if (isEntitySaved) {
                 return ResponseEntity.status(HttpStatus.CREATED).body(item);
             } else {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST)
