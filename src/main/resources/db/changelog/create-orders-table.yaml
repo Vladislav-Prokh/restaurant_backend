@@ -1,0 +1,76 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-orders-table
+      author: Prokhovich Vladislav
+      changes:
+        - createTable:
+            tableName: orders
+            columns:
+              - column:
+                  name: orders_id
+                  type: BIGSERIAL
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                    autoIncrement: true
+              - column:
+                  name: created_at
+                  type: timestamp
+                  constraints:
+                    nullable: false
+              - column:
+                  name: main_course_price
+                  type: DOUBLE
+                  constraints:
+                    nullable: false
+              - column:
+                  name: dessert_price
+                  type: DOUBLE
+                  constraints:
+                    nullable: false
+              - column:
+                  name: beverage_price
+                  type: DOUBLE
+                  constraints:
+                    nullable: false
+              - column:
+                  name: lunch_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: waiter_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: beverage_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: add-foreign-keys
+      author: Prokhovich Vladislav
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: orders
+            baseColumnNames: lunch_id
+            constraintName: fk_orders_lunch
+            referencedTableName: lunches
+            referencedColumnNames: lunch_id
+            onDelete: CASCADE
+        - addForeignKeyConstraint:
+            baseTableName: orders
+            baseColumnNames: waiter_id
+            constraintName: fk_orders_waiter
+            referencedTableName: waiters
+            referencedColumnNames: waiter_id
+            onDelete: CASCADE
+        - addForeignKeyConstraint:
+            baseTableName: orders
+            baseColumnNames: beverage_id
+            constraintName: fk_orders_beverage
+            referencedTableName: beverages
+            referencedColumnNames: beverage_id
+            onDelete: CASCADE

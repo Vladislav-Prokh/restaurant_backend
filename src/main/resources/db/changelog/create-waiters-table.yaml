@@ -1,0 +1,31 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-waiter-table
+      author: Prokhovich Vladislav
+      changes:
+        - createTable:
+            tableName: waiters
+            columns:
+              - column:
+                  name: waiter_id
+                  type: BIGSERIAL
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                    autoIncrement: true
+              - column:
+                  name: waiter_name
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: waiter_surname
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: waiter_lastname
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: false
+                    unique: true

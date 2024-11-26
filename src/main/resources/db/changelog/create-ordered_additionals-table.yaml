@@ -1,0 +1,25 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-ordered_additionals-table
+      author: Prokhovich Vladislav
+      changes:
+        - createTable:
+            tableName: ordered_additionals
+            columns:
+              - column:
+                  name: ordered_additional_id
+                  type: BIGSERIAL
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                    autoIncrement: true
+              - column:
+                  name: beverage_additional_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: quantity
+                  type: INTEGER
+                  constraints:
+                    nullable: false
