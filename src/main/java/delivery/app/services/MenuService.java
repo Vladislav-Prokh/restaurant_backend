@@ -1,6 +1,5 @@
 package delivery.app.services;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,9 +49,6 @@ public class MenuService {
 		saveEntity(beverage, beverageRepository, "saving beverage failed");
 	}
 
-	public List<Dessert> findAllDessert() {
-		return this.dessertRepository.findAll();
-	}
 
 	public Dessert findDessertById(Long dessert_id) {
 		return this.dessertRepository.findById(dessert_id)

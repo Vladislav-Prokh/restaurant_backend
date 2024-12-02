@@ -15,3 +15,5 @@ databaseChangeLog:
       file: db/changelog/create-ordered_additionals-table.yaml
   - include:
       file: db/changelog/create-orders-table.yaml
+  - include:
+      file: db/changelog/initialize-db.yaml

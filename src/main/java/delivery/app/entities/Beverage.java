@@ -39,5 +39,9 @@ public class Beverage {
 		this.beverage_price = beverage_price;
 	}
 	Beverage(){}
+	public Beverage(String beverage_name, float beverage_price) {
+		this.beverage_name = beverage_name;
+		this.beverage_price = beverage_price;
+	}
 	
 }

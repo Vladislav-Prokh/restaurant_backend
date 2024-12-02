@@ -11,6 +11,13 @@ public class OrderRequestDTO {
 	private List<OrderedAdditionalDTO> orderedAdditions;
 	
 	
+	public OrderRequestDTO(long lunch_id, long beverage_id, long waiter_id,List<OrderedAdditionalDTO> orderedAdditions) {
+		this.lunch_id = lunch_id;
+		this.beverage_id = beverage_id;
+		this.waiter_id = waiter_id;
+		this.orderedAdditions = orderedAdditions;
+	}
+
 	public List<OrderedAdditionalDTO> getOrderedAdditions() {
 		return orderedAdditions;
 	}

@@ -52,6 +52,16 @@ public class Waiter {
 		this.waiter_surname = waiter_surname;
 		this.waiter_lastname = waiter_lastname;
 	}
-	public Waiter() {}
+
+	public Waiter() {
+	}
+
+	public Long getWaiter_id() {
+		return waiter_id;
+	}
+
+	public void setWaiter_id(Long waiter_id) {
+		this.waiter_id = waiter_id;
+	}
 
 }

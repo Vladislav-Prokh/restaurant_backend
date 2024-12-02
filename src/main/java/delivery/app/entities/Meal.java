@@ -49,4 +49,10 @@ public class Meal {
 		this.cuisine = cuisine;
 	}
 	public Meal() {}
+
+	public Meal(String meal_name, float meal_price, CuisineType cuisine) {
+		this.meal_name = meal_name;
+		this.meal_price = meal_price;
+		this.cuisine = cuisine;
+	}
 }

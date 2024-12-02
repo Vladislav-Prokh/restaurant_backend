@@ -46,7 +46,12 @@ public class Dessert {
 		this.cuisine = cuisine;
 	}
 	public Dessert() {}
-	
-	
+	public Dessert(String dessert_name, float dessert_price, CuisineType cuisine) {
+		super();
+		this.dessert_name = dessert_name;
+		this.dessert_price = dessert_price;
+		this.cuisine = cuisine;
+	}
+
 	
 }
