@@ -24,9 +24,8 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.GET, "/orders").hasAnyRole("ADMIN")
                 .requestMatchers(HttpMethod.POST, "/orders").hasAnyRole("WAITER","ADMIN")
                 .requestMatchers(HttpMethod.DELETE, "/orders").hasAnyRole("ADMIN")
-                
+               
                 .requestMatchers("/employees").hasRole("ADMIN")
-
 	            .requestMatchers("/login").permitAll()
 	            .anyRequest().authenticated()
 	        )
@@ -34,7 +33,7 @@ public class SecurityConfig {
 	            .userInfoEndpoint(userInfo -> userInfo
 	                .userService(customOAuth2UserService)
 	            )
-	            .defaultSuccessUrl("/menu/beverages", true)
+	            .defaultSuccessUrl("http://localhost:4200/beverages", true)
 	        )
 	        .logout(logout -> logout  
 	                .logoutUrl("/logout")
