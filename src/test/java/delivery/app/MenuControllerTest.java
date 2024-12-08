@@ -32,7 +32,7 @@ public class MenuControllerTest {
     @MockBean
     private MenuService menuService; 
 
-    @Test
+   @Test
     public void testGetBeverages() throws Exception {
         int page = 0;
         int size = 10;

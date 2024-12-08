@@ -48,6 +48,13 @@ public class MenuController {
         return menuService.getLunches(page, size);
     }
 	
+	@GetMapping("/meals")
+    public Page<Meal> getMeals(
+            @RequestParam(defaultValue = "0") int page, 
+            @RequestParam(defaultValue = "10") int size) {
+        return menuService.getMeals(page, size);
+    }
+	
 	
 	@PostMapping("/beverage-additionals")
 	public void addBeverageAdditional(@RequestBody BeverageAdditional additional) {
@@ -73,7 +80,6 @@ public class MenuController {
 	public LunchResponseDTO addLunch(@RequestBody LunchRequestDTO lunch) {
 		return this.menuService.saveLunch(lunch);
 	}
-
 
 	
 	@DeleteMapping("/beverage-additionals/{additional-id}")

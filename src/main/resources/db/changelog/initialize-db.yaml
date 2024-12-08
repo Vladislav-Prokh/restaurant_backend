@@ -13,8 +13,8 @@ databaseChangeLog:
                   name: employee_surname
                   value: "waiter_surname"
               - column:
-                  name: employee_lastname
-                  value: "waiter_lastname"
+                  name: employee_email
+                  value: "waiter_email@gmai.com"
               - column:
                   name: employee_role
                   value: "Waiter"

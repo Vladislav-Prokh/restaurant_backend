@@ -31,24 +31,26 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 	public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
 		OAuth2User oAuth2User = super.loadUser(userRequest);
 		Map<String, Object> attributes = oAuth2User.getAttributes();
-		/* Реализовать Нормальную загрузку пользователя. */
 
-		Employee employee = employeRepository.findByEmployeeName(attributes.get("email").toString());
-		Collection<GrantedAuthority> authorities = new ArrayList<>();
+		String name = attributes.getOrDefault("given_name", "").toString();
+		String surname = attributes.getOrDefault("family_name", "").toString();
+		String email = attributes.getOrDefault("email", "").toString();
 		
+		Employee employee = employeRepository.findByEmployeeEmail(email);
+		Collection<GrantedAuthority> authorities = new ArrayList<>();
+
 		if (employee == null) {
 			employee = new Employee();
-			employee.setEmployeeName(attributes.get("").toString());
-			employee.setEmployeeLastName(attributes.get("").toString());
-			employee.setEmployeeSurName(attributes.get("").toString());
-			employee.setRole(Role.Default);
+			employee.setEmployeeName(name);
+			employee.setEmployeeSurName(surname);
+			employee.setEmployeeEmail(email);
+			employee.setRole(Role.DEFAULT);
 			employeeService.saveEmployee(employee);
 			authorities.add(new SimpleGrantedAuthority(employee.getRole().toString()));
 		} else {
 			SimpleGrantedAuthority empRole = new SimpleGrantedAuthority(employee.getRole().toString());
 			authorities.add(empRole);
 		}
-
 
 		return new DefaultOAuth2User(authorities, attributes, "name");
 	}

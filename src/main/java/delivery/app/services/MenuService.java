@@ -108,6 +108,11 @@ public class MenuService {
 		Pageable pageable = PageRequest.of(page, size);
 		return beverageRepository.findAll(pageable);
 	}
+	
+	public Page<Meal> getMeals(int page, int size) {
+		Pageable pageable = PageRequest.of(page, size);
+		return mealRepository.findAll(pageable);
+	}
 
 	public Page<BeverageAdditional> getAdditionals(int page, int size) {
 		Pageable pageable = PageRequest.of(page, size);

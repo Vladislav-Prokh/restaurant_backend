@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import delivery.app.DTO.OrderRequestDTO;
 import delivery.app.DTO.OrderResponseDTO;
@@ -125,6 +128,11 @@ public class OrderService {
 		return orderRepository.findByEmployee(waiter);
 	}
 
+	public Page<Order> getOrders(int page, int size) {
+		Pageable pageable = PageRequest.of(page, size);
+		return orderRepository.findAll(pageable);
+	}
+	
 	@Transactional
 	public void deleteOrder(Long orderId) {
 	    Order order = orderRepository.findById(orderId)

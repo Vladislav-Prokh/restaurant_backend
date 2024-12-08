@@ -24,8 +24,8 @@ databaseChangeLog:
                 constraints:
                   nullable: false
             - column:
-                name: employee_lastname
-                type: VARCHAR(20)
+                name: employee_email
+                type: VARCHAR(50)
                 constraints:
                   nullable: false
                   unique: true
@@ -34,5 +34,5 @@ databaseChangeLog:
                 type: VARCHAR(20)
                 constraints:
                   nullable: false
-                  unique: true
+                  unique: false
 

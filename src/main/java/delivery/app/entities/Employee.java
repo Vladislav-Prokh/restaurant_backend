@@ -10,7 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "employers")
+@Table(name = "employees")
 public class Employee {
 
 	@Id
@@ -21,8 +21,8 @@ public class Employee {
 	private String employeeName;
 	@Column(name = "employee_surname", nullable = false)
 	private String employeeSurName;
-	@Column(length = 20, name = "employee_lastname")
-	private String employeeLastName;
+	@Column(length = 50, name = "employee_email")
+	private String employeeEmail;
 	@Enumerated(EnumType.STRING)
 	@Column(name = "employee_role")
 	private Role role;
@@ -45,11 +45,12 @@ public class Employee {
 	public void setEmployeeSurName(String employeeSurName) {
 		this.employeeSurName = employeeSurName;
 	}
-	public String getEmployeeLastName() {
-		return employeeLastName;
+
+	public String getEmployeeEmail() {
+		return employeeEmail;
 	}
-	public void setEmployeeLastName(String employeeLastName) {
-		this.employeeLastName = employeeLastName;
+	public void setEmployeeEmail(String employeeEmail) {
+		this.employeeEmail = employeeEmail;
 	}
 	public Role getRole() {
 		return role;
