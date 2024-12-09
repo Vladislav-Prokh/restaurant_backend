@@ -16,6 +16,7 @@ public class SecurityConfig {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http, CustomOAuth2UserService customOAuth2UserService) throws Exception {
 	    http
 	        .authorizeHttpRequests(authz -> authz
+	        		.requestMatchers("/login/oauth2/code/google").permitAll()
 	        	.requestMatchers("/menu/beverages").permitAll()
 	        	.requestMatchers("/menu/lunches").permitAll()
                 .requestMatchers(HttpMethod.POST, "/menu/**").hasRole("ADMIN")
@@ -33,7 +34,7 @@ public class SecurityConfig {
 	            .userInfoEndpoint(userInfo -> userInfo
 	                .userService(customOAuth2UserService)
 	            )
-	            .defaultSuccessUrl("http://localhost:4200/beverages", true)
+	            .defaultSuccessUrl("http://localhost:8080/menu/beverages", true)
 	        )
 	        .logout(logout -> logout  
 	                .logoutUrl("/logout")

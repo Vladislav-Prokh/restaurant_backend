@@ -1,20 +1,15 @@
 package delivery.app.controllers;
-
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
-import org.springframework.security.oauth2.core.user.OAuth2User;
-import org.springframework.security.oauth2.core.OAuth2AccessToken;
-import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
-import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.http.*;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.Map;
 
 @RestController
+@RequestMapping("/login/oauth2/code")
 public class OAuth2Controller {
 
     @Value("${spring.security.oauth2.client.registration.google.client-id}")
@@ -23,31 +18,33 @@ public class OAuth2Controller {
     @Value("${spring.security.oauth2.client.registration.google.client-secret}")
     private String clientSecret;
 
-    private final OAuth2AuthorizedClientService authorizedClientService;
+    @Value("${spring.security.oauth2.client.registration.google.redirect-uri}")
+    private String redirectUri;
 
-    public OAuth2Controller(OAuth2AuthorizedClientService authorizedClientService) {
-        this.authorizedClientService = authorizedClientService;
-    }
+    @GetMapping("/google")
+    public ResponseEntity<?> handleGoogleRedirect(@RequestParam("code") String code) {
+        RestTemplate restTemplate = new RestTemplate();
 
+        System.out.println(32423423);
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+        params.add("client_id", clientId);
+        params.add("client_secret", clientSecret);
+        params.add("redirect_uri", redirectUri);
+        params.add("grant_type", "authorization_code");
+        params.add("code", code);
 
-    @PostMapping("/oauth/token")
-    public OAuth2AccessToken getToken(@RequestParam String code) {
-        // Здесь будет код для обмена authorization code на access token
-        OAuth2AuthenticationToken token = (OAuth2AuthenticationToken) getCurrentAuthentication();
-        OAuth2AuthorizedClient client = authorizedClientService.loadAuthorizedClient(
-                token.getAuthorizedClientRegistrationId(), token.getName());
-        return client.getAccessToken();
-    }
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 
-    // Эндпоинт для получения информации о пользователе
-    @GetMapping("/userinfo")
-    public Map<String, Object> getUserInfo(@AuthenticationPrincipal OAuth2User principal) {
-        // Возвращаем информацию о пользователе, полученную из OAuth2
-        return principal.getAttributes();
-    }
+        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(params, headers);
 
-    // Метод для получения текущей аутентификации
-    private Object getCurrentAuthentication() {
-        return org.springframework.security.core.context.SecurityContextHolder.getContext().getAuthentication();
+        ResponseEntity<Map> response = restTemplate.postForEntity(
+                "https://oauth2.googleapis.com/token", request, Map.class);
+
+        if (response.getStatusCode().is2xxSuccessful()) {
+            return ResponseEntity.ok(response.getBody());
+        } else {
+            return ResponseEntity.status(response.getStatusCode()).body("Error exchanging code for token");
+        }
     }
 }

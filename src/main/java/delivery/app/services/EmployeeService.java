@@ -14,12 +14,12 @@ public class EmployeeService {
 	@Autowired
 	private EmployeeRepository employeeRepository;
 
-	public Employee saveEmployee(Employee waiter) {
-		return this.employeeRepository.save(waiter);
+	public Employee saveEmployee(Employee employee) {
+		return this.employeeRepository.save(employee);
 	}
 
-	public Employee findWaiterById(Long waiterId) throws NotFoundException {
-		return this.employeeRepository.findById(waiterId).orElseThrow(() -> new ResourceNotFoundException("waiter not found"));
+	public Employee findEmployeeById(Long employeeId) throws NotFoundException {
+		return this.employeeRepository.findById(employeeId).orElseThrow(() -> new ResourceNotFoundException("employee not found"));
 	}
 
 }

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import delivery.app.entities.Employee;
 import delivery.app.services.EmployeeService;
 
@@ -20,7 +21,7 @@ public class EmployeeController {
 
 	@GetMapping("/{employee-id}")
 	public Employee findById(@PathVariable("employee-id") Long employee_id) throws NotFoundException {
-		return this.waiterService.findWaiterById(employee_id);
+		return this.waiterService.findEmployeeById(employee_id);
 	}
 
 	@PostMapping
