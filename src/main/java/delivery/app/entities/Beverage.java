@@ -29,7 +29,7 @@ public class Beverage {
 	@OneToMany(mappedBy = "beverage")
 	private List<OrderedAdditional> orderedAdditionals;
 
-	Beverage() {
+	public Beverage() {
 	}
 
 	public Long getBeverageId() {

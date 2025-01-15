@@ -43,11 +43,11 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(DeleteRecordException.class)
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	public ResponseEntity<Map<String, Object>> handleDeleteRecordException(DeleteRecordException ex) {
-		Map<String, Object> errorDetails = new HashMap<>();
-		errorDetails.put("status", 500);
-		errorDetails.put("message", ex.getMessage());
-		errorDetails.put("timestamp", System.currentTimeMillis());
-		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorDetails);
+	    Map<String, Object> errorDetails = new HashMap<>();
+	    errorDetails.put("status", 500);
+	    errorDetails.put("message", ex.getMessage());
+	    errorDetails.put("timestamp", System.currentTimeMillis());
+	    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorDetails);
 	}
 
 	static class ErrorResponse {

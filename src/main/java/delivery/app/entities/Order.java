@@ -2,6 +2,9 @@ package delivery.app.entities;
 
 import java.time.LocalDateTime;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -23,7 +26,9 @@ public class Order {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "orders_id")
+	@JsonProperty("orders_id")
 	private Long orderId;
+	@JsonProperty("created_at")
 	@Column(name="created_at")
 	private LocalDateTime createdAt;
 	@Column(name="main_course_price")

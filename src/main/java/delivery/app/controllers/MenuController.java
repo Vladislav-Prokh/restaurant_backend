@@ -17,6 +17,7 @@ import delivery.app.entities.BeverageAdditional;
 import delivery.app.entities.Dessert;
 import delivery.app.entities.Lunch;
 import delivery.app.entities.Meal;
+import delivery.app.exceptions.DeleteRecordException;
 import delivery.app.services.MenuService;
 
 @RestController
@@ -25,61 +26,60 @@ public class MenuController {
 
 	@Autowired
 	private MenuService menuService;
-
 	
 	@GetMapping("/beverages")
     public Page<Beverage> getBeverages(
             @RequestParam(defaultValue = "0") int page, 
-            @RequestParam(defaultValue = "10") int size) {
+            @RequestParam(defaultValue = "10") int size) throws Exception {
         return menuService.getBeverages(page, size);
     }
 	
 	@GetMapping("/additionals")
     public Page<BeverageAdditional> getAdditionals(
             @RequestParam(defaultValue = "0") int page, 
-            @RequestParam(defaultValue = "10") int size) {
+            @RequestParam(defaultValue = "10") int size) throws Exception {
         return menuService.getAdditionals(page, size);
     }
 
 	@GetMapping("/lunches")
     public Page<Lunch> getLunches(
             @RequestParam(defaultValue = "0") int page, 
-            @RequestParam(defaultValue = "10") int size) {
+            @RequestParam(defaultValue = "10") int size)  throws Exception  {
         return menuService.getLunches(page, size);
     }
 	
 	@GetMapping("/meals")
     public Page<Meal> getMeals(
             @RequestParam(defaultValue = "0") int page, 
-            @RequestParam(defaultValue = "10") int size) {
+            @RequestParam(defaultValue = "10") int size) throws Exception {
         return menuService.getMeals(page, size);
     }
 	
 	@GetMapping("/desserts")
     public Page<Dessert> getDesserts(
             @RequestParam(defaultValue = "0") int page, 
-            @RequestParam(defaultValue = "10") int size) {
+            @RequestParam(defaultValue = "10") int size) throws Exception  {
         return menuService.getDesserts(page, size);
     }
-	
+
 	@PostMapping("/beverage-additionals")
-	public void addBeverageAdditional(@RequestBody BeverageAdditional additional) {
-		menuService.saveBeverageAdditional(additional);
+	public BeverageAdditional addBeverageAdditional(@RequestBody BeverageAdditional additional) {
+		return menuService.saveBeverageAdditional(additional);
 	}
 
 	@PostMapping("/beverages")
-	public void addBeverage(@RequestBody Beverage beverage) {
-		menuService.saveBeverage(beverage);
+	public Beverage addBeverage(@RequestBody Beverage beverage) {
+		return menuService.saveBeverage(beverage);
 	}
 
 	@PostMapping("/meals")
-	public void addMeal(@RequestBody Meal meal) {
-		menuService.saveMeal(meal);
+	public Meal addMeal(@RequestBody Meal meal) {
+		return menuService.saveMeal(meal);
 	}
 
 	@PostMapping("/desserts")
-	public void addDessert(@RequestBody Dessert dessert) {
-		menuService.saveDessert(dessert);
+	public Dessert addDessert(@RequestBody Dessert dessert) {
+		return menuService.saveDessert(dessert);
 	}
 
 	@PostMapping("/lunches")
@@ -93,21 +93,21 @@ public class MenuController {
 	}
 
 	@DeleteMapping("/beverages/{beverage-id}")
-	public void deleteBeverage(@PathVariable("beverage-id") Long beverage_id) {
-		menuService.deleteBeverage(beverage_id);
+	public void deleteBeverage(@PathVariable("beverage-id") Long beverageId) throws DeleteRecordException {
+	    menuService.deleteBeverage(beverageId);
 	}
 	@DeleteMapping("/meals/{meal-id}")
-	public void deleteMeal(@PathVariable("meal-id") Long meal_id) {
+	public void deleteMeal(@PathVariable("meal-id") Long meal_id) throws DeleteRecordException  {
 		menuService.deleteMeal(meal_id);
 	}
 	
 	@DeleteMapping("/desserts/{dessert-id}")
-	public void deleteDessert(@PathVariable("dessert-id") Long dessert_id) {
+	public void deleteDessert(@PathVariable("dessert-id") Long dessert_id)throws DeleteRecordException  {
 		menuService.deleteDessert(dessert_id);
 	}
 
 	@DeleteMapping("/lunches/{lunch-id}")
-	public void deleteLunch(@PathVariable("lunch-id") Long lunch_id) {
+	public void deleteLunch(@PathVariable("lunch-id") Long lunch_id) throws DeleteRecordException {
 		menuService.deleteLunch(lunch_id);
 	}
 

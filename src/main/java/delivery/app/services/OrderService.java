@@ -2,6 +2,7 @@ package delivery.app.services;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -55,13 +56,18 @@ public class OrderService {
 	    newOrder = orderRepository.save(newOrder);
 
 	    List<OrderedAdditional> orderedAdditionals = saveOrderedAdditionals(orderDTO, newOrder);
-	    newOrder.setOrderedBeverageAdditionals(orderedAdditionals);
-	    newOrder = orderRepository.save(newOrder);
 
+	    if (orderedAdditionals != null && !orderedAdditionals.isEmpty()) {
+	        newOrder.setOrderedBeverageAdditionals(orderedAdditionals);
+	    } else {
+	        newOrder.setOrderedBeverageAdditionals(Collections.emptyList());
+	    }
+	    newOrder = orderRepository.save(newOrder);
 	    List<OrderedAdditionalDTO> orderedAdditionalsDTO = mapToOrderedAdditionalDTOs(orderedAdditionals);
 
 	    return buildOrderResponseDTO(orderDTO, newOrder, lunch, orderedBeverage, servicingWaiter, orderedAdditionalsDTO);
 	}
+
 
 	private Beverage fetchBeverageIfPresent(Long beverageId) {
 	    return beverageId != null ? fetchBeverage(beverageId) : null;
@@ -128,7 +134,7 @@ public class OrderService {
 	        .collect(Collectors.toList());
 	}
 
-	private OrderResponseDTO buildOrderResponseDTO(OrderRequestDTO orderDTO, Order newOrder, Lunch lunch, Beverage orderedBeverage, Employee servicingWaiter, List<OrderedAdditionalDTO> orderedAdditionalsDTO) {
+	OrderResponseDTO buildOrderResponseDTO(OrderRequestDTO orderDTO, Order newOrder, Lunch lunch, Beverage orderedBeverage, Employee servicingWaiter, List<OrderedAdditionalDTO> orderedAdditionalsDTO) {
 	    return new OrderResponseDTO(
 	        newOrder.getOrderId(),
 	        lunch != null && lunch.getMainCourse() != null ? orderDTO.getMainCourseCuisine() : null,
@@ -161,15 +167,11 @@ public class OrderService {
 	        .orElseThrow(() -> new IllegalArgumentException("Invalid additional ID"));
 	    return new OrderedAdditional(beverage, order, beverageAdditional, additionalDTO.getQuantity());
 	}
-
+	
+	
 	public Order findOrderById(Long order_id) {
 		return this.orderRepository.findById(order_id)
 				.orElseThrow(() -> new ResourceNotFoundException("resource not found"));
-	}
-
-
-	public List<Order> findOrderByEmployee(Employee waiter) {
-		return orderRepository.findByEmployee(waiter);
 	}
 
 	public Page<Order> getOrders(int page, int size) {
@@ -181,8 +183,13 @@ public class OrderService {
 	public void deleteOrder(Long orderId) {
 	    Order order = orderRepository.findById(orderId)
 	        .orElseThrow(() -> new EntityNotFoundException("Order not found"));
-	    order.getOrderedBeverageAdditionals().clear();
+
+	    if (order.getOrderedBeverageAdditionals() != null) {
+	        order.getOrderedBeverageAdditionals().clear(); 
+	    }
+
 	    orderRepository.save(order);
+
 	    orderRepository.delete(order);
 	}
 

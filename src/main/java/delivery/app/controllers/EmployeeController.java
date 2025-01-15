@@ -28,14 +28,13 @@ public class EmployeeController {
 	public Employee findById(@PathVariable("employee-id") Long employee_id) throws NotFoundException {
 		return this.employeeService.findEmployeeById(employee_id);
 	}
-	
+
 	@GetMapping
     public Page<Employee> findAllEmployees(
             @RequestParam(defaultValue = "0") int page, 
             @RequestParam(defaultValue = "10") int size) {
         return this.employeeService.getEmployees(page, size);
     }
-
 	@PostMapping("/{employeeId}/role")
     public ResponseEntity<String> assignRole(@PathVariable("employeeId") Long employeeId,
                                              @RequestBody RoleRequest roleRequest) {
@@ -46,9 +45,10 @@ public class EmployeeController {
             return ResponseEntity.status(500).body("Failed to assign role");
         }
     }
-	
+		
 	@DeleteMapping("/{employee-id}")
-	public void deleteEmployeeById(@PathVariable("employee-id") Long employee_id) {
-		 this.employeeService.deleteEmployeById(employee_id);
+	public ResponseEntity<Void> deleteEmployeeById(@PathVariable("employee-id") Long employee_id) {
+	    this.employeeService.deleteEmployeById(employee_id);
+	    return ResponseEntity.noContent().build(); 
 	}
 }

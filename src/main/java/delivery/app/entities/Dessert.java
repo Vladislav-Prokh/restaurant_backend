@@ -41,7 +41,7 @@ public class Dessert {
 	public void setDessertPrice(float dessertPrice) {
 		this.dessertPrice = dessertPrice;
 	}
-	public Dessert(String dessertName, float dessertPrice, CuisineType cuisine) {
+	public Dessert(String dessertName, float dessertPrice) {
 		super();
 		this.dessertName = dessertName;
 		this.dessertPrice = dessertPrice;

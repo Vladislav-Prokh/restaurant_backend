@@ -14,7 +14,6 @@ import delivery.app.repositories.EmployeeRepository;
 
 @Service
 public class EmployeeService {
-
 	@Autowired
 	private EmployeeRepository employeeRepository;
 
@@ -49,7 +48,4 @@ public class EmployeeService {
         this.employeeRepository.save(employee);
 
 	}
-
-
-
 }

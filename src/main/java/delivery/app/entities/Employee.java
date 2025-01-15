@@ -58,6 +58,17 @@ public class Employee {
 	public void setRole(Role role) {
 		this.role = role;
 	}
+	public Employee(Long employeeId, String employeeName, String employeeSurName, String employeeEmail, Role role) {
+		super();
+		this.employeeId = employeeId;
+		this.employeeName = employeeName;
+		this.employeeSurName = employeeSurName;
+		this.employeeEmail = employeeEmail;
+		this.role = role;
+	}
+	public Employee() {
+		super();
+	}
 
 	
 

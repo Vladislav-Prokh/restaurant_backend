@@ -18,8 +18,6 @@ public class OrderRequestDTO {
 	private Long waiterId;
 	private List<OrderedAdditionalDTO> orderedAdditions;
 	
-
-
 	public OrderRequestDTO(Long lunchId, CuisineType mainCourseCuisine, CuisineType dessertCuisine, Long beverageId,
 			Long waiterId, List<OrderedAdditionalDTO> orderedAdditions) {
 		super();
@@ -29,6 +27,10 @@ public class OrderRequestDTO {
 		this.beverageId = beverageId;
 		this.waiterId = waiterId;
 		this.orderedAdditions = orderedAdditions;
+	}
+
+	public OrderRequestDTO() {
+		
 	}
 
 	public Long getLunchId() {
@@ -78,6 +80,5 @@ public class OrderRequestDTO {
 	public void setDessertCuisine(CuisineType dessertCuisine) {
 		this.dessertCuisine = dessertCuisine;
 	}
-
 
 }

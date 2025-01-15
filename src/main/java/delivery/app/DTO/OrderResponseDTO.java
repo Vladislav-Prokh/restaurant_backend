@@ -32,6 +32,10 @@ public class OrderResponseDTO {
 		this.orderedAdditions = orderedAdditions;
 	}
 
+	public OrderResponseDTO() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public Long getOrderId() {
         return orderId;
     }

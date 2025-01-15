@@ -17,6 +17,14 @@ public class LunchRequestDTO {
 	public void setDessertId(Long dessertId) {
 		this.dessertId = dessertId;
 	}
+	public LunchRequestDTO(Long mainCourseId, Long dessertId) {
+		super();
+		this.mainCourseId = mainCourseId;
+		this.dessertId = dessertId;
+	}
+	public LunchRequestDTO() {
+		// TODO Auto-generated constructor stub
+	}
 	
 	
 

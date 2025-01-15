@@ -3,6 +3,7 @@ package delivery.app.entities;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,13 +21,11 @@ public class Lunch {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "lunch_id")
 	private Long lunchId;
-
-	@OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "mealId", nullable = true)
 	@OnDelete(action = OnDeleteAction.SET_NULL)
 	private Meal mainCourse;
-
-	@OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "dessertId", nullable = true)
 	@OnDelete(action = OnDeleteAction.SET_NULL)
 	private Dessert dessert;

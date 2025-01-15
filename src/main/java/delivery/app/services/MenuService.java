@@ -1,4 +1,5 @@
 package delivery.app.services;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import delivery.app.entities.Beverage;
@@ -27,16 +28,14 @@ public class MenuService {
 	private DessertRepository dessertRepository;
 	@Autowired
 	private MealRepository mealRepository;
-	@Autowired
-	private BeverageAdditionalRepository additionalRepository;
+
 	@Autowired
 	private LunchRepository lunchRepository;
 	@Autowired
 	private BeverageAdditionalRepository beverageAdditionalRepository;
-	
+
 	private String NOT_FOUND_MESSAGE = "Resource not found";
 
-	
 	public Beverage findBeverageById(Long beverage_id) {
 		return this.beverageRepository.findById(beverage_id)
 				.orElseThrow(() -> new ResourceNotFoundException(NOT_FOUND_MESSAGE));
@@ -48,6 +47,11 @@ public class MenuService {
 
 	public Dessert findDessertById(Long dessert_id) {
 		return this.dessertRepository.findById(dessert_id)
+				.orElseThrow(() -> new ResourceNotFoundException(NOT_FOUND_MESSAGE));
+	}
+
+	public Lunch findLunchById(Long lunch_id) {
+		return this.lunchRepository.findById(lunch_id)
 				.orElseThrow(() -> new ResourceNotFoundException(NOT_FOUND_MESSAGE));
 	}
 
@@ -71,17 +75,25 @@ public class MenuService {
 	public LunchResponseDTO saveLunch(LunchRequestDTO lunchRequestDto) {
 		Long mainCourseId = lunchRequestDto.getMainCourseId();
 		Long dessertId = lunchRequestDto.getDessertId();
+
 		Meal mainCourse = this.mealRepository.findById(mainCourseId)
 				.orElseThrow(() -> new ResourceNotFoundException("main course not found"));
 		Dessert dessert = this.dessertRepository.findById(dessertId)
 				.orElseThrow(() -> new ResourceNotFoundException("dessert not found"));
-		Lunch lunch = new Lunch(mainCourse, dessert);
+
+		Lunch lunch = new Lunch();
+
+		lunch.setMainCourse(mainCourse);
+		lunch.setDessert(dessert);
+
 		lunch = this.lunchRepository.save(lunch);
-		 return new LunchResponseDTO(lunch.getLunchId(), lunch.getMainCourse().getMealId(), lunch.getDessert().getDessertId());
+		
+		return new LunchResponseDTO(lunch.getLunchId(), lunch.getMainCourse().getMealId(),
+				lunch.getDessert().getDessertId());
 	}
 
 	public void deleteBeverageAdditional(Long id) {
-	 this.beverageAdditionalRepository.deleteById(id);
+		this.beverageAdditionalRepository.deleteById(id);
 	}
 
 	public void deleteBeverage(Long id) {
@@ -100,31 +112,27 @@ public class MenuService {
 		this.lunchRepository.deleteById(id);
 	}
 
-	public void deleteAdditional(Long id) {
-		this.additionalRepository.deleteById(id);
-	}
-	
-	public Page<Beverage> getBeverages(int page, int size) {
+	public Page<Beverage> getBeverages(int page, int size) throws Exception {
 		Pageable pageable = PageRequest.of(page, size);
 		return beverageRepository.findAll(pageable);
 	}
-	
-	public Page<Meal> getMeals(int page, int size) {
+
+	public Page<Meal> getMeals(int page, int size) throws Exception {
 		Pageable pageable = PageRequest.of(page, size);
 		return mealRepository.findAll(pageable);
 	}
 
-	public Page<BeverageAdditional> getAdditionals(int page, int size) {
+	public Page<BeverageAdditional> getAdditionals(int page, int size) throws Exception {
 		Pageable pageable = PageRequest.of(page, size);
-		return additionalRepository.findAll(pageable);
+		return this.beverageAdditionalRepository.findAll(pageable);
 	}
 
-	public Page<Lunch> getLunches(int page, int size) {
+	public Page<Lunch> getLunches(int page, int size) throws Exception {
 		Pageable pageable = PageRequest.of(page, size);
 		return lunchRepository.findAll(pageable);
 	}
-	
-	public Page<Dessert> getDesserts(int page, int size) {
+
+	public Page<Dessert> getDesserts(int page, int size) throws Exception {
 		Pageable pageable = PageRequest.of(page, size);
 		return dessertRepository.findAll(pageable);
 	}
